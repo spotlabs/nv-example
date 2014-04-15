@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.spotlabs.example.behavior;
 
+import com.spotlabs.app.NVApplication;
+import com.spotlabs.app.NVServiceManager;
 import com.spotlabs.example.R;
 import com.spotlabs.idle.IdleService;
 
@@ -53,8 +55,8 @@ public class ActivateIdle extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// Dispatch an intent using the Activate action from the IdleService
-				Intent i = new Intent(IdleService.ACTION_ACTIVATE);
-				getActivity().startService(i);
+                IdleService idleService = NVApplication.getInstance().getServiceManager().getService(NVServiceManager.IDLE_SERVICE);
+                idleService.forceIdle();
 			}
 		});
 	}

@@ -19,6 +19,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spotlabs.app.NVApplication;
+import com.spotlabs.app.NVServiceManager;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -64,7 +66,8 @@ public class FormMessage extends Fragment {
 		mView = inflater.inflate(R.layout.example_form_message, container, false);
 		return mView;
 	}
-	
+
+
 	public void sendMessage(String name, String email) {
 		
 		// add our name and email to a list of name value pairs
@@ -76,7 +79,7 @@ public class FormMessage extends Fragment {
 		FormDataMessage message = new FormDataMessage(URI.create("http://www.example.com/postEndpoint"), formBody);
 		
 		// grab a message service and queue the message we created
-		MessageService messageService = new MessageService(this.getActivity());
+		MessageService messageService = NVApplication.getInstance().getServiceManager().getService(NVServiceManager.MESSAGE_SERVICE);
 		messageService.queue(message);
 		
 		Toast toast = Toast.makeText(this.getActivity(), "Message Queued", Toast.LENGTH_LONG);
